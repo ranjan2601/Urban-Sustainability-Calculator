@@ -1,0 +1,36 @@
+{
+    "location": {
+        "latitude": 40.73560020897821,
+        "longitude": -73.99062659084409,
+        "address": "Union Square East, Union Square, Manhattan Community Board 5, Manhattan, New York County, City of New York, New York, 10003, United States"
+    },
+    "sustainability_score": {
+        "environmental_impact": {
+            "carbon_footprint": "High - The area has a significant carbon footprint due to heavy reliance on vehicular transportation and energy-intensive buildings.",
+            "air_water_quality": "Moderate - Air quality is affected by traffic and building emissions, while water quality in the East River is impacted by urban runoff.",
+            "green_space_biodiversity": "Low - Limited green spaces in the immediate vicinity, contributing to the urban heat island effect and reduced biodiversity.",
+            "waste_circular_economy": "Moderate - Waste management systems are in place, but there is potential for improvement in waste reduction and recycling rates."
+        },
+        "economic_sustainability": {
+            "job_creation_local_economy": "High - The area is a major employment hub with a diverse range of industries, supporting the local economy.",
+            "infrastructure_transport": "Excellent - Excellent public transportation options (subway, buses) and accessible pedestrian infrastructure, reducing reliance on personal vehicles.",
+            "affordability_social_equity": "Low - High cost of living, limited affordable housing options, and income inequality contribute to social disparities."
+        },
+        "social_impact": {
+            "noise_light_pollution": "High - Significant noise pollution from traffic and urban activities, as well as light pollution from building illumination.",
+            "health_safety": "Moderate - Access to healthcare facilities and emergency services, but air pollution and noise levels can impact health and well-being.",
+            "community_well_being": "Moderate - Diverse community with cultural amenities and social services, but social isolation and crime can be concerns."
+        }
+    },
+    "final_score": {
+        "value": 6.5,
+        "zone": "Yellow",
+        "recommendations": [
+            "Promote energy-efficient building practices and renewable energy sources to reduce the carbon footprint.",
+            "Invest in green infrastructure, such as parks and urban forests, to improve air quality and mitigate the urban heat island effect.",
+            "Implement comprehensive waste reduction and recycling programs to minimize waste generation and promote a circular economy.",
+            "Develop affordable housing initiatives and policies to address income inequality and housing affordability concerns.",
+            "Implement noise mitigation measures, such as traffic calming and noise barriers, to reduce noise pollution and improve quality of life."
+        ]
+    }
+}
