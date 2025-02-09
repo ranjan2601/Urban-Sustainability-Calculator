@@ -8,23 +8,19 @@ const DynamicMap = dynamic(() => import("./components/map"), { ssr: false });
 export default function Home() {
   const [sustainabilityData, setSustainabilityData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [project, setProject] = useState("");
+  const [constructionType, setConstructionType] = useState("");
 
+  // Function to calculate sustainability score
+  // Function to calculate sustainability score
   const calculateSustainability = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const projectInput = document.getElementById("project") as HTMLInputElement;
-    const constructionTypeInput = document.getElementById("constructionType") as HTMLSelectElement;
-
-    const project = projectInput?.value.trim();
-    const constructionType = constructionTypeInput?.value;
-
-    // Validate all required fields
-    if (!project || !constructionType) {
+    if (!project.trim() || !constructionType) {
       alert("Please fill in all fields before assessing sustainability.");
       return;
     }
 
-    // Check if location is selected
     if (!sustainabilityData?.location?.latitude || !sustainabilityData?.location?.longitude) {
       alert("Please select a location on the map first.");
       return;
@@ -34,11 +30,11 @@ export default function Home() {
 
     try {
       const payload = {
-        project,
-        constructionType,
+        construction_plans: `Project: ${project}, Construction Type: ${constructionType}`, // Combine project and constructionType into construction_plans
         latitude: sustainabilityData.location.latitude,
         longitude: sustainabilityData.location.longitude,
       };
+      console.log("Payload:", payload);
 
       const response = await fetch("http://127.0.0.1:5000/construction_json", {
         method: "POST",
@@ -50,17 +46,16 @@ export default function Home() {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
-        throw new Error(
-          errorData?.message || `HTTP error! Status: ${response.status}`
-        );
+        throw new Error(errorData?.message || `HTTP error! Status: ${response.status}`);
       }
 
       const data = await response.json();
-
-      // Merge new data with existing location data
+      if (data.error) {
+        throw new Error(data.error || "Failed to calculate sustainability score. Try Again.");
+      }
       setSustainabilityData({
         ...data,
-        location: sustainabilityData.location, // Preserve location data
+        location: sustainabilityData.location,
       });
     } catch (error) {
       console.error("Error calculating sustainability:", error);
@@ -69,6 +64,13 @@ export default function Home() {
       setIsLoading(false);
     }
   };
+
+  // Loading spinner component
+  const LoadingSpinner = () => (
+    <div className="flex justify-center items-center h-24">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green-500 border-opacity-50"></div>
+    </div>
+  );
 
   return (
     <div className="h-screen w-screen flex flex-col bg-white">
@@ -114,9 +116,11 @@ export default function Home() {
                 <input
                   type="text"
                   id="project"
+                  value={project}
+                  onChange={(e) => setProject(e.target.value)}
                   placeholder="E.g., eco-friendly office, solar-powered home"
                   className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-700"
-                  disabled={isLoading || !sustainabilityData?.location?.latitude}
+                  disabled={!sustainabilityData?.location?.latitude}
                 />
                 <p className="text-xs text-gray-500 mt-1"> Select a location on the map first. </p>
               </div>
@@ -127,6 +131,8 @@ export default function Home() {
                 </label>
                 <select
                   id="constructionType"
+                  value={constructionType}
+                  onChange={(e) => setConstructionType(e.target.value)}
                   className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-700"
                   disabled={isLoading}
                 >
@@ -146,38 +152,14 @@ export default function Home() {
               >
                 {isLoading ? (
                   <>
-                    <svg
-                      className="animate-spin h-5 w-5 mr-2 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 0116 0"
-                      ></path>
-                    </svg>
+                    <LoadingSpinner />
                     Calculating...
                   </>
                 ) : (
                   "Assess Sustainability"
                 )}
               </button>
-
             </form>
-
-            <p className="text-xs text-gray-500 mt-4 text-center">
-              Input your project details and get an eco-friendly assessment for your location.
-            </p>
           </div>
 
           {/* Scrollable Content */}
@@ -186,29 +168,27 @@ export default function Home() {
             <div className="bg-green-100 p-4 rounded-md shadow">
               <h3 className="text-lg font-semibold text-green-700 mb-2">📍 Selected Location</h3>
               <p className="text-sm text-gray-700">
-                <strong>Address:</strong>{" "}
-                {sustainabilityData?.location?.address ?? "Click on the map"} <br />
-                <strong>Latitude:</strong>{" "}
-                {sustainabilityData?.location?.latitude?.toFixed(5) ?? "--"},{" "}
-                <strong>Longitude:</strong>{" "}
-                {sustainabilityData?.location?.longitude?.toFixed(5) ?? "--"}
+                <strong>Address:</strong> {sustainabilityData?.location?.address ?? "Click on the map"} <br />
+                <strong>Latitude:</strong> {sustainabilityData?.location?.latitude?.toFixed(5) ?? "--"},{" "}
+                <strong>Longitude:</strong> {sustainabilityData?.location?.longitude?.toFixed(5) ?? "--"}
               </p>
             </div>
 
-            {/* Rest of the components remain the same */}
             {/* Sustainability Score */}
             <div className="bg-gray-100 p-4 rounded-md shadow">
               <h3 className="text-lg font-semibold text-green-700 mb-2">🌿 Sustainability Score</h3>
-              <p className="text-sm text-gray-700">
-                <strong>Zone:</strong> {sustainabilityData?.final_score?.zone ?? "N/A"} <br />
-                <strong>Final Score:</strong> {sustainabilityData?.final_score?.value ?? "--"} / 10
-              </p>
+              {isLoading ? <LoadingSpinner /> : (
+                <p className="text-sm text-gray-700">
+                  <strong>Zone:</strong> {sustainabilityData?.final_score?.zone ?? "N/A"} <br />
+                  <strong>Final Score:</strong> {sustainabilityData?.final_score?.value ?? "--"} / 10
+                </p>
+              )}
             </div>
 
             {/* Economic Sustainability */}
             <div className="bg-blue-100 p-4 rounded-md shadow">
               <h3 className="text-lg font-semibold text-green-700 mb-2">🏙 Economic Sustainability</h3>
-              <p className="text-sm text-gray-700">
+              {isLoading ? <LoadingSpinner /> : (<p className="text-sm text-gray-700">
                 <strong>Affordability:</strong>{" "}
                 {sustainabilityData?.sustainability_score?.economic_sustainability?.affordability_social_equity ?? "N/A"}
                 <br />
@@ -217,12 +197,13 @@ export default function Home() {
                 <br />
                 <strong>Job Market:</strong>{" "}
                 {sustainabilityData?.sustainability_score?.economic_sustainability?.job_creation_local_economy ?? "N/A"}
-              </p>
+              </p>)}
             </div>
 
             {/* Environmental Impact */}
             <div className="bg-green-100 p-4 rounded-md shadow">
               <h3 className="text-lg font-semibold text-green-700 mb-2">🌍 Environmental Impact</h3>
+              {isLoading ? <LoadingSpinner /> : (
               <p className="text-sm text-gray-700">
                 <strong>Air & Water Quality:</strong>{" "}
                 {sustainabilityData?.sustainability_score?.environmental_impact?.air_water_quality ?? "N/A"}
@@ -236,11 +217,13 @@ export default function Home() {
                 <strong>Waste Management:</strong>{" "}
                 {sustainabilityData?.sustainability_score?.environmental_impact?.waste_circular_economy ?? "N/A"}
               </p>
+              )}
             </div>
 
             {/* Social Impact */}
             <div className="bg-yellow-100 p-4 rounded-md shadow">
               <h3 className="text-lg font-semibold text-green-700 mb-2">❤️ Social Impact</h3>
+              {isLoading ? <LoadingSpinner /> : (
               <p className="text-sm text-gray-700">
                 <strong>Well-being:</strong>{" "}
                 {sustainabilityData?.sustainability_score?.social_impact?.community_well_being ?? "N/A"}
@@ -251,11 +234,13 @@ export default function Home() {
                 <strong>Noise & Light:</strong>{" "}
                 {sustainabilityData?.sustainability_score?.social_impact?.noise_light_pollution ?? "N/A"}
               </p>
+              )}
             </div>
 
             {/* Recommendations */}
             <div className="bg-white p-4 rounded-md shadow">
               <h3 className="text-lg font-semibold text-green-700 mb-2">💡 Recommendations</h3>
+              {isLoading ? <LoadingSpinner /> : (
               <ul className="text-sm text-gray-700 list-disc list-inside">
                 {sustainabilityData?.final_score?.recommendations?.length > 0 ? (
                   sustainabilityData.final_score.recommendations.map(
@@ -265,6 +250,7 @@ export default function Home() {
                   <li>No recommendations available.</li>
                 )}
               </ul>
+              )}
             </div>
           </div>
         </div>

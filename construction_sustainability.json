@@ -1,36 +1,39 @@
 {
     "location": {
-        "latitude": 40.734746278700634,
-        "longitude": -73.99280274977501,
-        "address": "28, East 13th Street, Manhattan, New York County, City of New York, New York, 10003, United States"
+        "latitude": 40.729338055769816,
+        "longitude": -74.00022146474137,
+        "address": "212, Sullivan Street, University Village, Manhattan, New York County, City of New York, New York, 10012, United States"
     },
     "sustainability_score": {
         "environmental_impact": {
-            "carbon_footprint": "Low to Moderate",
-            "air_water_quality": "Moderate",
-            "green_space_biodiversity": "Low",
-            "waste_circular_economy": "Moderate"
+            "carbon_footprint": "High - The construction and operation of a diesel generator based large factory will result in significant Greenhouse Gas (GHG) emissions, contributing to climate change.",
+            "air_water_quality": "Moderate - The factory's operations may release air pollutants, such as particulate matter and Nitrogen Oxides (NOx), affecting air quality. Additionally, water consumption and wastewater discharge require proper management to minimize impacts on water resources.",
+            "green_space_biodiversity": "Low - The construction of the factory will likely require land conversion, reducing green spaces and affecting local biodiversity.",
+            "waste_circular_economy": "Moderate - The factory is expected to generate significant waste, including hazardous waste from the diesel generator. Implementing proper waste management practices, including recycling and waste reduction initiatives, is crucial to minimize environmental impacts."
         },
         "economic_sustainability": {
-            "job_creation_local_economy": "High",
-            "infrastructure_transport": "High",
-            "affordability_social_equity": "Low"
+            "job_creation_local_economy": "High - The construction and operation of the factory will create employment opportunities, contributing to the local economy.",
+            "infrastructure_transport": "Moderate - The factory may require additional infrastructure development, such as road expansion or utility upgrades, impacting the surrounding area. The use of diesel generators may also strain the local electricity grid.",
+            "affordability_social_equity": "Low - The factory's construction may lead to increased land values and potentially displace lower-income residents from the area, affecting social equity and affordability."
         },
         "social_impact": {
-            "noise_light_pollution": "Moderate",
-            "health_safety": "High",
-            "community_well_being": "Moderate"
+            "noise_light_pollution": "High - The operation of diesel generators and factory machinery can generate noise pollution, affecting the well-being of nearby residents. Additionally, the factory may emit light pollution, disrupting natural light cycles.",
+            "health_safety": "Moderate - The factory's operations may pose health and safety risks to workers and the surrounding community if proper safety measures are not implemented and maintained.",
+            "community_well_being": "Moderate - The factory's construction and operation may disrupt community life, alter the character of the neighborhood, and potentially strain local services such as healthcare and education if not planned and managed with community input."
         }
     },
     "final_score": {
-        "value": 6.5,
-        "zone": "Amber",
+        "value": "54%",
+        "zone": "Yellow",
         "recommendations": [
-            "Explore opportunities to reduce carbon emissions during construction and operation.",
-            "Implement measures to mitigate noise and light pollution during construction.",
-            "Consider increasing green space around the amusement park.",
-            "Work with local community groups to address concerns and maximize community benefits.",
-            "Explore partnerships with public transportation providers to improve accessibility and reduce traffic congestion."
+            "Implement energy efficiency measures and explore renewable energy sources to reduce the carbon footprint.",
+            "Monitor and mitigate air and water pollution emissions through regular inspections and maintenance.",
+            "Preserve or create green spaces to offset the loss of biodiversity and enhance the neighborhood's environmental quality.",
+            "Develop a comprehensive waste management plan that prioritizes recycling, waste reduction, and responsible disposal.",
+            "Engage with the community throughout the planning and construction process to address concerns and mitigate social impacts.",
+            "Invest in noise reduction technologies and implement measures to minimize light pollution.",
+            "Prioritize worker and community health and safety by adhering to strict safety standards and providing proper training.",
+            "Explore opportunities to create affordable housing options and support existing residents to minimize displacement."
         ]
     }
 }
