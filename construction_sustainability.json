@@ -1,37 +1,36 @@
 {
     "location": {
-        "latitude": 40.73189345552552,
-        "longitude": -73.997141798854,
-        "address": "21, MacDougal Alley, University Village, Manhattan, New York County, City of New York, New York, 10011, United States"
+        "latitude": 40.728719977985406,
+        "longitude": -73.97997012194418,
+        "address": "527, East 12th Street, Manhattan Community Board 3, Manhattan, New York County, City of New York, New York, 10009, United States"
     },
     "sustainability_score": {
         "environmental_impact": {
-            "carbon_footprint": "Moderate",
-            "air_water_quality": "Good",
-            "green_space_biodiversity": "Low",
-            "waste_circular_economy": "Fair"
+            "carbon_footprint": "During construction, the emission of greenhouse gasses will increase due to the transportation of materials, energy consumption during construction, and waste disposal. However, the gym's design will prioritize energy efficiency, aiming for LEED certification, resulting in lower operational carbon emissions.",
+            "air_water_quality": "The construction phase may impact the air quality due to dust, noise, and emissions from machinery. The operational phase may impact the water quality if the gym's waste management system is not adequate. The design should include measures to minimize these impacts, such as dust control and proper waste disposal.",
+            "green_space_biodiversity": "The construction of the gym will not significantly impact green spaces or biodiversity in the area since it will occur on the existing developed site.",
+            "waste_circular_economy": "The construction and operation of the gym will generate waste. The project should aim to minimize waste generation and promote a circular economy through waste reduction, recycling, and composting."
         },
         "economic_sustainability": {
-            "job_creation_local_economy": "High",
-            "infrastructure_transport": "Excellent",
-            "affordability_social_equity": "Poor"
+            "job_creation_local_economy": "The construction and operation of the gym will create jobs and contribute to the local economy. The gym will also attract people to the area, potentially stimulating other businesses and increasing property values.",
+            "infrastructure_transport": "The gym will be easily accessible by public transport and is located close to residential areas. This will reduce the need for car travel, which contributes to air pollution and traffic congestion.",
+            "affordability_social_equity": "The gym will offer various membership options to make it accessible to people of different income levels. The gym's design will also consider the needs of people with disabilities."
         },
         "social_impact": {
-            "noise_light_pollution": "High",
-            "health_safety": "Moderate",
-            "community_well_being": "Fair"
+            "noise_light_pollution": "During construction, there may be noise and light pollution, which can be mitigated through proper scheduling and noise control measures. During operation, the gym should implement measures to minimize noise and light pollution for the surrounding community.",
+            "health_safety": "The gym will promote health and well-being by providing opportunities for exercise and fitness. The gym will also be designed to meet safety standards, including accessibility for people with disabilities.",
+            "community_well_being": "The gym will contribute to the community's well-being by promoting health and fitness, providing a space for social interaction, and potentially partnering with local organizations to offer fitness programs for underprivileged communities."
         }
     },
     "final_score": {
-        "value": 6.3,
-        "zone": "Amber",
+        "value": 85,
+        "zone": "Good",
         "recommendations": [
-            "Incorporate sustainable building materials and energy-efficient systems to reduce the carbon footprint.",
-            "Plant trees and green spaces around the school to improve air and water quality and enhance biodiversity.",
-            "Implement comprehensive waste management and recycling programs to promote a circular economy.",
-            "Explore partnerships with local transportation providers to improve public transit access and reduce traffic congestion.",
-            "Conduct noise impact assessments and implement noise mitigation measures to minimize disturbance to the surrounding community.",
-            "Engage with the community to address concerns and foster a sense of ownership and well-being."
+            "Explore opportunities to reduce the gym's carbon footprint during construction and operation, such as using sustainable materials and renewable energy sources.",
+            "Implement a comprehensive waste management plan to minimize environmental impact and promote a circular economy.",
+            "Engage with the community to address concerns about noise and light pollution during construction and operation, and implement mitigation measures.",
+            "Work with local organizations to offer fitness programs that benefit the community's well-being, particularly for underprivileged populations.",
+            "Consider offering a range of membership options to make the gym accessible to people of all income levels."
         ]
     }
 }

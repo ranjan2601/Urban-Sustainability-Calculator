@@ -7,6 +7,72 @@ const DynamicMap = dynamic(() => import("./components/map"), { ssr: false });
 
 export default function Home() {
   const [sustainabilityData, setSustainabilityData] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const calculateSustainability = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const projectInput = document.getElementById("project") as HTMLInputElement;
+    const constructionTypeInput = document.getElementById("constructionType") as HTMLSelectElement;
+
+    const project = projectInput?.value.trim();
+    const constructionType = constructionTypeInput?.value;
+
+    // Validate all required fields
+    if (!project || !constructionType) {
+      alert("Please fill in all fields before assessing sustainability.");
+      return;
+    }
+
+    // Check if location is selected
+    if (!sustainabilityData?.location?.latitude || !sustainabilityData?.location?.longitude) {
+      alert("Please select a location on the map first.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // Combine project and constructionType into construction_plans
+      const construction_plans = `${project} (${constructionType})`;
+      
+      const payload = {
+        construction_plans,
+        latitude: sustainabilityData.location.latitude,
+        longitude: sustainabilityData.location.longitude,
+      };
+
+      console.log("Sending payload:", payload);
+
+      const response = await fetch("http://127.0.0.1:5000/construction_json", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(
+          errorData?.error || `HTTP error! Status: ${response.status}`
+        );
+      }
+
+      const data = await response.json();
+      console.log("Fetched Sustainability Data:", data);
+      // Merge new data with existing location data
+      setSustainabilityData({
+        ...data,
+        location: sustainabilityData.location, // Preserve location data
+      });
+    } catch (error) {
+      console.error("Error calculating sustainability:", error);
+      alert(error instanceof Error ? error.message : "Failed to fetch sustainability data. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="h-screen w-screen flex flex-col bg-white">
@@ -44,7 +110,7 @@ export default function Home() {
             <h2 className="text-xl font-semibold text-green-600 mb-4 text-center">
               Plan Your Sustainable Construction 🌍
             </h2>
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={calculateSustainability}>
               <div>
                 <label htmlFor="project" className="block text-sm text-gray-700 mb-1">
                   What do you want to build?
@@ -53,7 +119,8 @@ export default function Home() {
                   type="text"
                   id="project"
                   placeholder="E.g., eco-friendly office, solar-powered home"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-700"
+                  disabled={isLoading}
                 />
               </div>
 
@@ -63,7 +130,8 @@ export default function Home() {
                 </label>
                 <select
                   id="constructionType"
-                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400"
+                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-700"
+                  disabled={isLoading}
                 >
                   <option value="">Select a type</option>
                   <option value="residential">Residential</option>
@@ -75,9 +143,14 @@ export default function Home() {
 
               <button
                 type="submit"
-                className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 transition"
+                className={`w-full py-2 rounded transition ${
+                  isLoading 
+                    ? 'bg-green-300 cursor-not-allowed' 
+                    : 'bg-green-500 hover:bg-green-600'
+                } text-white`}
+                disabled={isLoading}
               >
-                Assess Sustainability
+                {isLoading ? 'Calculating...' : 'Assess Sustainability'}
               </button>
             </form>
 
@@ -101,6 +174,7 @@ export default function Home() {
               </p>
             </div>
 
+            {/* Rest of the components remain the same */}
             {/* Sustainability Score */}
             <div className="bg-gray-100 p-4 rounded-md shadow">
               <h3 className="text-lg font-semibold text-green-700 mb-2">🌿 Sustainability Score</h3>

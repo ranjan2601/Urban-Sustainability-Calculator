@@ -208,7 +208,7 @@ def generate_json():
     json_data = fetch_sustainability_data(lat, lon)
     return jsonify(json_data)
 
-@app.route('/construction_json', methods=['POST'])
+@app.route('/construction_json', methods=['POST','GET'])
 def construction_json():
     """API to receive construction plans and return sustainability assessment"""
     request_data = request.get_json()
