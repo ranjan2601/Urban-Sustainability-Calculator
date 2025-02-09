@@ -1,0 +1,37 @@
+{
+    "location": {
+        "latitude": 40.73189345552552,
+        "longitude": -73.997141798854,
+        "address": "21, MacDougal Alley, University Village, Manhattan, New York County, City of New York, New York, 10011, United States"
+    },
+    "sustainability_score": {
+        "environmental_impact": {
+            "carbon_footprint": "Moderate",
+            "air_water_quality": "Good",
+            "green_space_biodiversity": "Low",
+            "waste_circular_economy": "Fair"
+        },
+        "economic_sustainability": {
+            "job_creation_local_economy": "High",
+            "infrastructure_transport": "Excellent",
+            "affordability_social_equity": "Poor"
+        },
+        "social_impact": {
+            "noise_light_pollution": "High",
+            "health_safety": "Moderate",
+            "community_well_being": "Fair"
+        }
+    },
+    "final_score": {
+        "value": 6.3,
+        "zone": "Amber",
+        "recommendations": [
+            "Incorporate sustainable building materials and energy-efficient systems to reduce the carbon footprint.",
+            "Plant trees and green spaces around the school to improve air and water quality and enhance biodiversity.",
+            "Implement comprehensive waste management and recycling programs to promote a circular economy.",
+            "Explore partnerships with local transportation providers to improve public transit access and reduce traffic congestion.",
+            "Conduct noise impact assessments and implement noise mitigation measures to minimize disturbance to the surrounding community.",
+            "Engage with the community to address concerns and foster a sense of ownership and well-being."
+        ]
+    }
+}

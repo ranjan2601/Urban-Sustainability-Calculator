@@ -1,39 +1,38 @@
 {
     "location": {
-        "latitude": 40.75081410337087,
-        "longitude": -73.36841355317078,
-        "address": "97, South 24th Street, Wyandanch, Town of Babylon, Suffolk County, New York, 11798, United States"
+        "latitude": 40.72786449211589,
+        "longitude": -73.9892281816478,
+        "address": "225 East 6th Street, Manhattan Community Board 3, Manhattan, New York County, City of New York, New York, 10009, United States"
     },
     "sustainability_score": {
         "environmental_impact": {
-            "carbon_footprint": "High",
-            "air_water_quality": "Poor",
-            "green_space_biodiversity": "Low",
-            "waste_circular_economy": "Moderate"
+            "carbon_footprint": "17,800 pounds CO2 per household",
+            "air_water_quality": "Good air quality; water quality could be improved",
+            "green_space_biodiversity": "Very limited green space; low biodiversity",
+            "waste_circular_economy": "Limited waste management infrastructure; low recycling rates"
         },
         "economic_sustainability": {
-            "job_creation_local_economy": "Moderate",
-            "infrastructure_transport": "Poor",
-            "affordability_social_equity": "Low"
+            "job_creation_local_economy": "High; location is a major business hub",
+            "infrastructure_transport": "Excellent; public transportation, bike lanes, and walkability are readily available",
+            "affordability_social_equity": "Very low; housing costs are extremely high and income inequality is significant"
         },
         "social_impact": {
-            "noise_light_pollution": "High",
-            "health_safety": "Poor",
-            "community_well_being": "Low"
+            "noise_light_pollution": "High due to heavy traffic and proximity to nightlife",
+            "health_safety": "Good; access to healthcare, but air quality concerns",
+            "community_well_being": "Mixed; diverse community but income inequality and gentrification contribute to social issues"
         }
     },
     "final_score": {
-        "value": 2.5,
-        "zone": "Red",
+        "value": 6.5,
+        "zone": "Yellow",
         "recommendations": [
-            "Invest in renewable energy sources and energy-efficient infrastructure to reduce carbon footprint",
-            "Improve public transportation and infrastructure to reduce air and noise pollution",
-            "Create and protect green spaces and restore biodiversity to improve air and water quality",
-            "Encourage sustainable waste management practices and promote a circular economy",
-            "Invest in affordable housing and community development to improve social equity and well-being",
-            "Implement noise reduction strategies and enforce noise regulations to mitigate noise pollution",
-            "Prioritize health and safety initiatives to address environmental hazards and improve public health",
-            "Foster community engagement and empower residents to participate in decision-making processes"
+            "Invest in energy efficiency measures to reduce carbon footprint",
+            "Improve public transportation and walkability to reduce air pollution",
+            "Develop more affordable housing options to address income inequality",
+            "Increase green space and promote biodiversity to improve environmental sustainability",
+            "Implement waste reduction and recycling programs to enhance circular economy practices",
+            "Address noise pollution concerns through zoning and traffic management strategies",
+            "Foster social cohesion and community well-being through inclusive initiatives and programs"
         ]
     }
 }

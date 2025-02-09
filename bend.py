@@ -114,11 +114,85 @@ def fetch_sustainability_data(lat, lon):
         print(f"❌ Error: {e}")
         return {"error": str(e)}
 
+def fetch_construction_sustainability_data(lat, lon, construction_plans):
+    address = get_address_from_coordinates(lat,lon)
+    """Fetch sustainability data for construction plans using Google Gemini API"""
+    prompt = f"""
+    Provide a sustainability assessment for the construction of {construction_plans} at latitude {lat} and longitude {lon}.
+    Include:
+    - Environmental Impact (Carbon Footprint, Air & Water Quality, Green Spaces, Waste Management)
+    - Economic Sustainability (Job Creation, Infrastructure, Affordability)
+    - Social Impact (Noise Pollution, Health & Safety, Community Well-being)
+
+    Give specific details like energy consumption, public transport impact, expected carbon emissions, green space availability, and housing affordability.
+
+    Format the response in JSON like this:
+    {{
+        "location": {{
+            "latitude": {lat},
+            "longitude": {lon},
+            "address": {address}
+        }},
+        "sustainability_score": {{
+            "environmental_impact": {{
+                "carbon_footprint": "...",
+                "air_water_quality": "...",
+                "green_space_biodiversity": "...",
+                "waste_circular_economy": "..."
+            }},
+            "economic_sustainability": {{
+                "job_creation_local_economy": "...",
+                "infrastructure_transport": "...",
+                "affordability_social_equity": "..."
+            }},
+            "social_impact": {{
+                "noise_light_pollution": "...",
+                "health_safety": "...",
+                "community_well_being": "..."
+            }}
+        }},
+        "final_score": {{
+            "value": "...",
+            "zone": "...",
+            "recommendations": ["...", "...", "..."]
+        }}
+    }}
+    """
+
+    try:
+        model = genai.GenerativeModel("gemini-pro")  # ✅ Use Gemini Pro Model
+        response = model.generate_content(prompt)
+
+        if not response.text:
+            raise ValueError("Empty response from Gemini API")
+
+        chat_response = response.text.strip()
+
+        # ✅ Try converting to JSON
+        try:
+            sustainability_data = json.loads(chat_response)
+        except json.JSONDecodeError:
+            print("⚠️ Invalid JSON response received. Attempting to fix...")
+            chat_response = chat_response.replace("```json", "").replace("```", "").strip()  # Remove code block formatting
+            try:
+                sustainability_data = json.loads(chat_response)
+            except json.JSONDecodeError:
+                return {"error": "Failed to parse Gemini API response into JSON"}
+
+        # ✅ Save JSON to a file
+        with open("construction_sustainability.json", "w", encoding="utf-8") as json_file:
+            json.dump(sustainability_data, json_file, indent=4)
+
+        print("✅ Sustainability Data:", json.dumps(sustainability_data, indent=4))
+        return sustainability_data
+
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return {"error": str(e)}
 
 @app.route('/')
 def home():
     return "Sustainability API is running!"
-
 
 @app.route('/generate_json', methods=['POST', 'GET'])
 def generate_json():
@@ -134,57 +208,19 @@ def generate_json():
     json_data = fetch_sustainability_data(lat, lon)
     return jsonify(json_data)
 
-def generate_sustainability_score(location, current_score, user_project):
-    prompt = f"""
-    Given the following location details and construction project, update the sustainability score based on environmental, economic, and social factors.
-    
-    Location:
-    Latitude: {location['latitude']}, Longitude: {location['longitude']}
-    Address: {location['address']}
-    
-    Current Sustainability Score:
-    Environmental Impact:
-    - Carbon Footprint: {current_score['environmental_impact']['carbon_footprint']}
-    - Air & Water Quality: {current_score['environmental_impact']['air_water_quality']}
-    - Green Space & Biodiversity: {current_score['environmental_impact']['green_space_biodiversity']}
-    - Waste & Circular Economy: {current_score['environmental_impact']['waste_circular_economy']}
-    
-    Economic Sustainability:
-    - Job Creation & Local Economy: {current_score['economic_sustainability']['job_creation_local_economy']}
-    - Infrastructure & Transport: {current_score['economic_sustainability']['infrastructure_transport']}
-    - Affordability & Social Equity: {current_score['economic_sustainability']['affordability_social_equity']}
-    
-    Social Impact:
-    - Noise & Light Pollution: {current_score['social_impact']['noise_light_pollution']}
-    - Health & Safety: {current_score['social_impact']['health_safety']}
-    - Community Well-being: {current_score['social_impact']['community_well_being']}
-    
-    User’s Construction Plan:
-    {user_project}
-    
-    Please analyze the impact and provide:
-    - Updated sustainability factors
-    - A new final sustainability score out of 100
-    - Recommendations for improving the sustainability score.
-    """
-    
-    model = genai.GenerativeModel("gemini-pro")
-    response = model.generate_content(prompt)
-    
-    return response.text
+@app.route('/construction_json', methods=['POST'])
+def construction_json():
+    """API to receive construction plans and return sustainability assessment"""
+    request_data = request.get_json()
+    lat = request_data.get('latitude')
+    lon = request_data.get('longitude')
+    construction_plans = request_data.get('construction_plans')
 
-@app.route('/calculate_sustainability', methods=['POST'])
-def calculate_sustainability():
-    data = request.json
-    location = data.get("location")
-    current_score = data.get("sustainability_score")
-    user_project = data.get("user_project")
-    
-    if not location or not current_score or not user_project:
-        return jsonify({"error": "Missing required parameters."}), 400
-    
-    result = generate_sustainability_score(location, current_score, user_project)
-    return jsonify({"updated_sustainability": result})
+    if lat is None or lon is None or construction_plans is None:
+        return jsonify({"error": "Invalid coordinates or construction plans"}), 400
+
+    json_data = fetch_construction_sustainability_data(lat, lon, construction_plans)
+    return jsonify(json_data)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=5000)
