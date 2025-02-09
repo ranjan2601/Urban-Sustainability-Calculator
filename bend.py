@@ -49,6 +49,8 @@ def fetch_sustainability_data(lat, lon):
     - Social Impact (Noise Pollution, Health & Safety, Community Well-being)
 
     Give specific details like energy consumption, public transport impact, expected carbon emissions, green space availability, and housing affordability.
+    Additionally, give me the business reommendations and give me the sustainability score in the range of 0-10.
+
 
     Format the response in JSON like this:
     {{
@@ -125,7 +127,8 @@ def fetch_construction_sustainability_data(lat, lon, construction_plans):
     - Social Impact (Noise Pollution, Health & Safety, Community Well-being)
 
     Give specific details like energy consumption, public transport impact, expected carbon emissions, green space availability, and housing affordability.
-
+    Additionally, give me the business reommendations and give me the sustainability score in the range of 0-10.
+    
     Format the response in JSON like this:
     {{
         "location": {{
