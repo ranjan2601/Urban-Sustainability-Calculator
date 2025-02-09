@@ -33,16 +33,12 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      // Combine project and constructionType into construction_plans
-      const construction_plans = `${project} (${constructionType})`;
-      
       const payload = {
-        construction_plans,
+        project,
+        constructionType,
         latitude: sustainabilityData.location.latitude,
         longitude: sustainabilityData.location.longitude,
       };
-
-      console.log("Sending payload:", payload);
 
       const response = await fetch("http://127.0.0.1:5000/construction_json", {
         method: "POST",
@@ -55,12 +51,12 @@ export default function Home() {
       if (!response.ok) {
         const errorData = await response.json().catch(() => null);
         throw new Error(
-          errorData?.error || `HTTP error! Status: ${response.status}`
+          errorData?.message || `HTTP error! Status: ${response.status}`
         );
       }
 
       const data = await response.json();
-      console.log("Fetched Sustainability Data:", data);
+
       // Merge new data with existing location data
       setSustainabilityData({
         ...data,
@@ -120,8 +116,9 @@ export default function Home() {
                   id="project"
                   placeholder="E.g., eco-friendly office, solar-powered home"
                   className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-700"
-                  disabled={isLoading}
+                  disabled={isLoading || !sustainabilityData?.location?.latitude}
                 />
+                <p className="text-xs text-gray-500 mt-1"> Select a location on the map first. </p>
               </div>
 
               <div>
@@ -143,15 +140,39 @@ export default function Home() {
 
               <button
                 type="submit"
-                className={`w-full py-2 rounded transition ${
-                  isLoading 
-                    ? 'bg-green-300 cursor-not-allowed' 
-                    : 'bg-green-500 hover:bg-green-600'
-                } text-white`}
+                className={`w-full py-2 rounded transition flex justify-center items-center ${isLoading ? 'bg-green-300 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600'
+                  } text-white`}
                 disabled={isLoading}
               >
-                {isLoading ? 'Calculating...' : 'Assess Sustainability'}
+                {isLoading ? (
+                  <>
+                    <svg
+                      className="animate-spin h-5 w-5 mr-2 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 0116 0"
+                      ></path>
+                    </svg>
+                    Calculating...
+                  </>
+                ) : (
+                  "Assess Sustainability"
+                )}
               </button>
+
             </form>
 
             <p className="text-xs text-gray-500 mt-4 text-center">
