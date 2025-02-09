@@ -4,12 +4,14 @@ import json
 import os
 from flask_cors import CORS  # ✅ Import CORS
 import requests
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
 
 # Set your Gemini API key
-GEMINI_API_KEY = "AIzaSyD9rxV9yupKAruFqyWYy7slQkFrE4clVg0"
+load_dotenv()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 
 import json

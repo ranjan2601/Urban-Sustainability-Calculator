@@ -1,34 +1,34 @@
 {
     "location": {
-        "latitude": 40.73939234147656,
-        "longitude": -73.98899943837824,
-        "address": "24, East 21st Street, Flatiron District, Manhattan Community Board 5, Manhattan, New York County, City of New York, New York, 10010, United States"
+        "latitude": 40.732267009830224,
+        "longitude": -73.99226462345018,
+        "address": "49, East 10th Street, Manhattan Community Board 3, Manhattan, New York County, City of New York, New York, 10003, United States"
     },
     "sustainability_score": {
         "environmental_impact": {
-            "carbon_footprint": "Moderate",
-            "air_water_quality": "Good",
-            "green_space_biodiversity": "Poor",
-            "waste_circular_economy": "Fair"
+            "carbon_footprint": "8.5",
+            "air_water_quality": "9.0",
+            "green_space_biodiversity": "7.5",
+            "waste_circular_economy": "6.5"
         },
         "economic_sustainability": {
-            "job_creation_local_economy": "Excellent",
-            "infrastructure_transport": "Excellent",
-            "affordability_social_equity": "Poor"
+            "job_creation_local_economy": "9.5",
+            "infrastructure_transport": "10.0",
+            "affordability_social_equity": "5.0"
         },
         "social_impact": {
-            "noise_light_pollution": "High to Very High",
-            "health_safety": "Good",
-            "community_well_being": "Good"
+            "noise_light_pollution": "8.0",
+            "health_safety": "9.0",
+            "community_well_being": "8.5"
         }
     },
     "final_score": {
-        "value": 6.5,
-        "zone": "Yellow (Moderate Sustainability)",
+        "value": "8.0",
+        "zone": "Good",
         "recommendations": [
-            "Improve green space availability and biodiversity in the area.",
-            "Implement measures to reduce noise and light pollution.",
-            "Invest in affordable housing and social programs to address social equity concerns."
+            "Improve waste management and recycling programs.",
+            "Increase affordable housing options.",
+            "Promote energy efficiency and renewable energy sources."
         ]
     }
 }
