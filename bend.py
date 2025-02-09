@@ -134,5 +134,57 @@ def generate_json():
     json_data = fetch_sustainability_data(lat, lon)
     return jsonify(json_data)
 
+def generate_sustainability_score(location, current_score, user_project):
+    prompt = f"""
+    Given the following location details and construction project, update the sustainability score based on environmental, economic, and social factors.
+    
+    Location:
+    Latitude: {location['latitude']}, Longitude: {location['longitude']}
+    Address: {location['address']}
+    
+    Current Sustainability Score:
+    Environmental Impact:
+    - Carbon Footprint: {current_score['environmental_impact']['carbon_footprint']}
+    - Air & Water Quality: {current_score['environmental_impact']['air_water_quality']}
+    - Green Space & Biodiversity: {current_score['environmental_impact']['green_space_biodiversity']}
+    - Waste & Circular Economy: {current_score['environmental_impact']['waste_circular_economy']}
+    
+    Economic Sustainability:
+    - Job Creation & Local Economy: {current_score['economic_sustainability']['job_creation_local_economy']}
+    - Infrastructure & Transport: {current_score['economic_sustainability']['infrastructure_transport']}
+    - Affordability & Social Equity: {current_score['economic_sustainability']['affordability_social_equity']}
+    
+    Social Impact:
+    - Noise & Light Pollution: {current_score['social_impact']['noise_light_pollution']}
+    - Health & Safety: {current_score['social_impact']['health_safety']}
+    - Community Well-being: {current_score['social_impact']['community_well_being']}
+    
+    User’s Construction Plan:
+    {user_project}
+    
+    Please analyze the impact and provide:
+    - Updated sustainability factors
+    - A new final sustainability score out of 100
+    - Recommendations for improving the sustainability score.
+    """
+    
+    model = genai.GenerativeModel("gemini-pro")
+    response = model.generate_content(prompt)
+    
+    return response.text
+
+@app.route('/calculate_sustainability', methods=['POST'])
+def calculate_sustainability():
+    data = request.json
+    location = data.get("location")
+    current_score = data.get("sustainability_score")
+    user_project = data.get("user_project")
+    
+    if not location or not current_score or not user_project:
+        return jsonify({"error": "Missing required parameters."}), 400
+    
+    result = generate_sustainability_score(location, current_score, user_project)
+    return jsonify({"updated_sustainability": result})
+
 if __name__ == '__main__':
     app.run(debug=True)

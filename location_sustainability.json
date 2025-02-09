@@ -1,36 +1,39 @@
 {
     "location": {
-        "latitude": 40.73560020897821,
-        "longitude": -73.99062659084409,
-        "address": "Union Square East, Union Square, Manhattan Community Board 5, Manhattan, New York County, City of New York, New York, 10003, United States"
+        "latitude": 40.75081410337087,
+        "longitude": -73.36841355317078,
+        "address": "97, South 24th Street, Wyandanch, Town of Babylon, Suffolk County, New York, 11798, United States"
     },
     "sustainability_score": {
         "environmental_impact": {
-            "carbon_footprint": "High - The area has a significant carbon footprint due to heavy reliance on vehicular transportation and energy-intensive buildings.",
-            "air_water_quality": "Moderate - Air quality is affected by traffic and building emissions, while water quality in the East River is impacted by urban runoff.",
-            "green_space_biodiversity": "Low - Limited green spaces in the immediate vicinity, contributing to the urban heat island effect and reduced biodiversity.",
-            "waste_circular_economy": "Moderate - Waste management systems are in place, but there is potential for improvement in waste reduction and recycling rates."
+            "carbon_footprint": "High",
+            "air_water_quality": "Poor",
+            "green_space_biodiversity": "Low",
+            "waste_circular_economy": "Moderate"
         },
         "economic_sustainability": {
-            "job_creation_local_economy": "High - The area is a major employment hub with a diverse range of industries, supporting the local economy.",
-            "infrastructure_transport": "Excellent - Excellent public transportation options (subway, buses) and accessible pedestrian infrastructure, reducing reliance on personal vehicles.",
-            "affordability_social_equity": "Low - High cost of living, limited affordable housing options, and income inequality contribute to social disparities."
+            "job_creation_local_economy": "Moderate",
+            "infrastructure_transport": "Poor",
+            "affordability_social_equity": "Low"
         },
         "social_impact": {
-            "noise_light_pollution": "High - Significant noise pollution from traffic and urban activities, as well as light pollution from building illumination.",
-            "health_safety": "Moderate - Access to healthcare facilities and emergency services, but air pollution and noise levels can impact health and well-being.",
-            "community_well_being": "Moderate - Diverse community with cultural amenities and social services, but social isolation and crime can be concerns."
+            "noise_light_pollution": "High",
+            "health_safety": "Poor",
+            "community_well_being": "Low"
         }
     },
     "final_score": {
-        "value": 6.5,
-        "zone": "Yellow",
+        "value": 2.5,
+        "zone": "Red",
         "recommendations": [
-            "Promote energy-efficient building practices and renewable energy sources to reduce the carbon footprint.",
-            "Invest in green infrastructure, such as parks and urban forests, to improve air quality and mitigate the urban heat island effect.",
-            "Implement comprehensive waste reduction and recycling programs to minimize waste generation and promote a circular economy.",
-            "Develop affordable housing initiatives and policies to address income inequality and housing affordability concerns.",
-            "Implement noise mitigation measures, such as traffic calming and noise barriers, to reduce noise pollution and improve quality of life."
+            "Invest in renewable energy sources and energy-efficient infrastructure to reduce carbon footprint",
+            "Improve public transportation and infrastructure to reduce air and noise pollution",
+            "Create and protect green spaces and restore biodiversity to improve air and water quality",
+            "Encourage sustainable waste management practices and promote a circular economy",
+            "Invest in affordable housing and community development to improve social equity and well-being",
+            "Implement noise reduction strategies and enforce noise regulations to mitigate noise pollution",
+            "Prioritize health and safety initiatives to address environmental hazards and improve public health",
+            "Foster community engagement and empower residents to participate in decision-making processes"
         ]
     }
 }
